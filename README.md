@@ -27,13 +27,18 @@ results/traces/    Metal GPU traces (large, not committed)
 
 ## Setup
 
-Requirements: Apple Silicon, macOS 15 or later, full Xcode with macOS SDK 26.2 or later, and Hugging Face access to `facebook/MobileMoE-S-SFT`.
+Requirements: Apple Silicon, macOS 15 or later, [uv](https://docs.astral.sh/uv/), and Hugging Face access to `facebook/MobileMoE-S-SFT`. Full Xcode 26.2 or later is only needed to open GPU traces and to rebuild vllm-metal's kernels.
 
 ```bash
-git clone --recurse-submodules --shallow-submodules https://github.com/surucuonur/meta-hackathon.git
-cd meta-hackathon/third_party/vllm-metal
-./install.sh && source .venv-vllm-metal/bin/activate
-uv pip install -e ".[dev]" -e ../mlx-lm
+git clone --recurse-submodules https://github.com/surucuonur/meta-hackathon.git
+cd meta-hackathon
+uv venv .venv --python-preference only-managed --python cpython-3.12-macos-aarch64 --seed
+source .venv/bin/activate
+uv pip install "https://github.com/vllm-project/vllm/releases/download/v0.32.0/vllm-0.32.0%2Bcpu-cp38-abi3-macosx_11_0_arm64.whl"
+uv pip install "https://github.com/vllm-project/vllm-metal/releases/download/v0.32.0.dev20261028121433/vllm_metal-0.32.0.dev20261028121433-cp312-cp312-macosx_15_0_arm64.whl"
+uv pip install --no-deps -e third_party/mlx-lm
 ```
 
-`.env` (not committed) holds `MODEL_API_KEY` for Muse Spark.
+Python must be native arm64. An Intel Python running under Rosetta can't install these wheels, so `--python` forces uv's own arm64 build. The vllm-metal wheel is the prebuilt release of the commit pinned in `third_party/vllm-metal`. The editable `mlx-lm` install is the fork where the MobileMoE port lives.
+
+`.env` is not committed. It holds `MODEL_API_KEY` for Muse Spark and `HUGGINGFACE_API_KEY` for downloading the gated model; the scripts pass the second one to Hugging Face tools as `HF_TOKEN`.
