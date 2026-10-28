@@ -7,6 +7,10 @@
 .DS_Store
 
 # Python
-.venv/
+.venv*/
 __pycache__/
 *.pyc
+
+# Large, machine-local profiler output
+results/traces/
+*.gputrace
