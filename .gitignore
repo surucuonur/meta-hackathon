@@ -17,3 +17,9 @@ results/traces/
 
 # Reference logits for the port check (large; the JSON summaries are committed)
 results/port/*.npz
+
+# Local editable installs
+*.egg-info/
+
+# Converted model checkpoints (bench/convert_qat.py)
+models/

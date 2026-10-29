@@ -43,7 +43,7 @@ The single cause, identified from measurements, that most limits throughput for 
 _Avoid_: issue, slowness
 
 **Baseline**:
-The unmodified engine serving MobileMoE-S-SFT, against which every fix is measured.
+The unmodified engine serving MobileMoE-S-QAT (int4), against which every fix is measured.
 
 **Fix**:
 One change to the engine, the model code or the configuration, measured against the baseline under the same workload.

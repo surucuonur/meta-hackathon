@@ -1,0 +1,77 @@
+{
+  "model": "facebook/MobileMoE-S-QAT",
+  "revision": "afda132cad380ac47da5ef055f186884d1c12f65",
+  "dtype": "bfloat16",
+  "verdict": "PASS",
+  "mlx": "0.32.4",
+  "mlx_lm": "0.32.0",
+  "mlx_lm_commit": "d22850520472b4ccfb47bd98993fe35c127cc116",
+  "mlx_model": "MobileMoE-S-QAT-mlx-bfloat16",
+  "exact_model": "MobileMoE-S-QAT-mlx-float32",
+  "results": [
+    {
+      "max_abs_diff": 1.13671875,
+      "mean_abs_diff": 0.051442865282297134,
+      "top1_agreement": 0.9571428571428572,
+      "top5_overlap": 0.9742857142857141,
+      "greedy_match": true,
+      "first_divergence": null,
+      "ref_top2_margin_at_divergence": null,
+      "tokenizer_match": true,
+      "prompt": {
+        "chat": "Explain why the sky is blue in a short paragraph."
+      },
+      "ref_error": 0.0463569276034832,
+      "port_error": 0.04352649301290512,
+      "error_ratio": 0.9389425758585993
+    },
+    {
+      "max_abs_diff": 2.9140625,
+      "mean_abs_diff": 0.07791948318481445,
+      "top1_agreement": 0.9857142857142858,
+      "top5_overlap": 0.9742857142857143,
+      "greedy_match": true,
+      "first_divergence": null,
+      "ref_top2_margin_at_divergence": null,
+      "tokenizer_match": true,
+      "prompt": {
+        "chat": "Write a Python function that checks whether a number is prime."
+      },
+      "ref_error": 0.05263618379831314,
+      "port_error": 0.07550982385873795,
+      "error_ratio": 1.4345611404517864
+    },
+    {
+      "max_abs_diff": 1.3291015625,
+      "mean_abs_diff": 0.047267209738492966,
+      "top1_agreement": 0.9705882352941176,
+      "top5_overlap": 0.9676470588235294,
+      "greedy_match": false,
+      "first_divergence": 3,
+      "ref_top2_margin_at_divergence": 0.375,
+      "tokenizer_match": true,
+      "prompt": {
+        "chat": "List three differences between a CPU and a GPU."
+      },
+      "ref_error": 0.037529803812503815,
+      "port_error": 0.036344993859529495,
+      "error_ratio": 0.9684301586308965
+    },
+    {
+      "max_abs_diff": 1.625,
+      "mean_abs_diff": 0.06846216320991516,
+      "top1_agreement": 0.9636363636363636,
+      "top5_overlap": 0.9745454545454545,
+      "greedy_match": false,
+      "first_divergence": 3,
+      "ref_top2_margin_at_divergence": 0.0,
+      "tokenizer_match": true,
+      "prompt": {
+        "text": "The history of the printing press begins"
+      },
+      "ref_error": 0.06199399009346962,
+      "port_error": 0.06082955002784729,
+      "error_ratio": 0.9812168878972514
+    }
+  ]
+}

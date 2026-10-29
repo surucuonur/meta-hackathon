@@ -5,7 +5,9 @@
   "verdict": "PASS",
   "mlx": "0.32.4",
   "mlx_lm": "0.32.0",
-  "mlx_lm_commit": "854017b22bfad986740c2768c6f38fa0e71dec38",
+  "mlx_lm_commit": "d22850520472b4ccfb47bd98993fe35c127cc116",
+  "mlx_model": "4decae01abfeaf46046b8774fdc4404b3e33a3a4",
+  "exact_model": null,
   "results": [
     {
       "max_abs_diff": 7.62939453125e-05,

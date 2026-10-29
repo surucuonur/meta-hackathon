@@ -11,6 +11,14 @@ output and its logits. `mlx` runs the port on the same token ids, compares,
 and writes a summary to results/port/. Run float32 first: the bfloat16 check
 uses the port's float32 logits as the exact answer.
 
+The int4 QAT model runs from MLX copies made by bench/convert_qat.py. The
+float32 gate uses the copy with exact scales; the bfloat16 check runs the
+serving copy and takes the exact answer from the exact copy:
+
+    .venv/bin/python bench/check_port.py mlx --model facebook/MobileMoE-S-QAT \
+        --dtype bfloat16 --mlx-model models/MobileMoE-S-QAT-mlx-bfloat16 \
+        --exact-model models/MobileMoE-S-QAT-mlx-float32
+
 Pass criteria:
   float32   the correctness gate. Every prompt: same greedy tokens, same
             top-1 token at every position, max |logit difference| <= 1e-2.
@@ -154,9 +162,7 @@ def compare(ref_logits, logits, ref_generated, generated, prompt_len) -> dict:
     return {
         "max_abs_diff": float(diff.max()),
         "mean_abs_diff": float(diff.mean()),
-        "top1_agreement": float(
-            (ref_logits.argmax(-1) == logits.argmax(-1)).mean()
-        ),
+        "top1_agreement": float((ref_logits.argmax(-1) == logits.argmax(-1)).mean()),
         "top5_overlap": float(np.mean(overlap)),
         "greedy_match": divergence is None,
         "first_divergence": divergence,
@@ -169,6 +175,7 @@ def run_mlx(args) -> int:
     import mlx_lm
     from mlx_lm import load
     from mlx_lm.models.cache import make_prompt_cache
+    from mlx_lm.utils import load_model
 
     if args.dtype == "bfloat16":
         fp32 = summary_file(args.model, "float32")
@@ -176,10 +183,8 @@ def run_mlx(args) -> int:
             sys.exit(f"Run and pass the float32 check first ({fp32} missing or FAIL).")
 
     ref = np.load(ref_file(args.model, args.dtype))
-    path = model_dir(args.model)
-    model, tokenizer = load(
-        str(path), tokenizer_config={"trust_remote_code": True}
-    )
+    path = Path(args.mlx_model) if args.mlx_model else model_dir(args.model)
+    model, tokenizer = load(str(path), tokenizer_config={"trust_remote_code": True})
     if args.dtype == "float32":
         model.set_dtype(mx.float32)
 
@@ -216,6 +221,8 @@ def run_mlx(args) -> int:
 
     if args.dtype == "bfloat16":
         port = [logits_for(s) for s in sequences]
+        if args.exact_model:
+            model = load_model(Path(args.exact_model))[0]
         model.set_dtype(mx.float32)
         for i, (r, s) in enumerate(zip(results, sequences)):
             exact = logits_for(s)
@@ -236,17 +243,25 @@ def run_mlx(args) -> int:
 
     verdict = "PASS" if all(passed(r) for r in results) else "FAIL"
     ratio_header = f" {'err ratio':>9}" if args.dtype == "bfloat16" else ""
-    print(f"{'#':>2} {'max|d|':>8} {'mean|d|':>9} {'top1':>6} {'top5':>6}"
-          f"{ratio_header} {'tok':>4}  greedy")
+    print(
+        f"{'#':>2} {'max|d|':>8} {'mean|d|':>9} {'top1':>6} {'top5':>6}"
+        f"{ratio_header} {'tok':>4}  greedy"
+    )
     for i, r in enumerate(results):
-        greedy_note = "same" if r["greedy_match"] else (
-            f"differs at token {r['first_divergence']} "
-            f"(reference top-2 margin {r['ref_top2_margin_at_divergence']:.3f})"
+        greedy_note = (
+            "same"
+            if r["greedy_match"]
+            else (
+                f"differs at token {r['first_divergence']} "
+                f"(reference top-2 margin {r['ref_top2_margin_at_divergence']:.3f})"
+            )
         )
         ratio = f" {r['error_ratio']:9.2f}" if "error_ratio" in r else ""
-        print(f"{i:>2} {r['max_abs_diff']:8.4f} {r['mean_abs_diff']:9.5f} "
-              f"{r['top1_agreement']:6.3f} {r['top5_overlap']:6.3f}{ratio} "
-              f"{'ok' if r['tokenizer_match'] else 'DIFF':>4}  {greedy_note}")
+        print(
+            f"{i:>2} {r['max_abs_diff']:8.4f} {r['mean_abs_diff']:9.5f} "
+            f"{r['top1_agreement']:6.3f} {r['top5_overlap']:6.3f}{ratio} "
+            f"{'ok' if r['tokenizer_match'] else 'DIFF':>4}  {greedy_note}"
+        )
     print(f"{args.dtype}: {verdict}")
 
     summary = {
@@ -257,6 +272,8 @@ def run_mlx(args) -> int:
         "mlx": mx.__version__,
         "mlx_lm": mlx_lm.__version__,
         "mlx_lm_commit": git_commit(mlx_lm.__file__),
+        "mlx_model": path.name,
+        "exact_model": Path(args.exact_model).name if args.exact_model else None,
         "results": results,
     }
     out = summary_file(args.model, args.dtype)
@@ -271,6 +288,10 @@ def main() -> int:
     parser.add_argument("--model", default="facebook/MobileMoE-S-SFT")
     parser.add_argument("--dtype", choices=["float32", "bfloat16"], default="float32")
     parser.add_argument("--max-tokens", type=int, default=48)
+    parser.add_argument("--mlx-model", help="MLX model folder (default: --model)")
+    parser.add_argument(
+        "--exact-model", help="model for the bfloat16 exact answer (default: same)"
+    )
     args = parser.parse_args()
     if args.step == "ref":
         run_ref(args)

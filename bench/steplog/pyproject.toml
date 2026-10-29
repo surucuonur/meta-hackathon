@@ -1,0 +1,15 @@
+[project]
+name = "bench-steplog"
+version = "0.1.0"
+description = "Per-step records from vllm-metal for the bandwidth study"
+requires-python = ">=3.12"
+
+[project.entry-points."vllm.general_plugins"]
+steplog = "bench_steplog:register"
+
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["bench_steplog"]
