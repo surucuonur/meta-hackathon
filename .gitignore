@@ -14,3 +14,6 @@ __pycache__/
 # Large, machine-local profiler output
 results/traces/
 *.gputrace
+
+# Reference logits for the port check (large; the JSON summaries are committed)
+results/port/*.npz

@@ -1,0 +1,63 @@
+{
+  "model": "facebook/MobileMoE-S-SFT",
+  "revision": "4decae01abfeaf46046b8774fdc4404b3e33a3a4",
+  "dtype": "float32",
+  "verdict": "PASS",
+  "mlx": "0.32.4",
+  "mlx_lm": "0.32.0",
+  "mlx_lm_commit": "854017b22bfad986740c2768c6f38fa0e71dec38",
+  "results": [
+    {
+      "max_abs_diff": 7.62939453125e-05,
+      "mean_abs_diff": 3.8692678572260775e-06,
+      "top1_agreement": 1.0,
+      "top5_overlap": 1.0,
+      "greedy_match": true,
+      "first_divergence": null,
+      "ref_top2_margin_at_divergence": null,
+      "tokenizer_match": true,
+      "prompt": {
+        "chat": "Explain why the sky is blue in a short paragraph."
+      }
+    },
+    {
+      "max_abs_diff": 7.62939453125e-05,
+      "mean_abs_diff": 4.178115432296181e-06,
+      "top1_agreement": 1.0,
+      "top5_overlap": 1.0,
+      "greedy_match": true,
+      "first_divergence": null,
+      "ref_top2_margin_at_divergence": null,
+      "tokenizer_match": true,
+      "prompt": {
+        "chat": "Write a Python function that checks whether a number is prime."
+      }
+    },
+    {
+      "max_abs_diff": 7.62939453125e-05,
+      "mean_abs_diff": 3.6528792861645343e-06,
+      "top1_agreement": 1.0,
+      "top5_overlap": 1.0,
+      "greedy_match": true,
+      "first_divergence": null,
+      "ref_top2_margin_at_divergence": null,
+      "tokenizer_match": true,
+      "prompt": {
+        "chat": "List three differences between a CPU and a GPU."
+      }
+    },
+    {
+      "max_abs_diff": 4.00543212890625e-05,
+      "mean_abs_diff": 3.3638893910392653e-06,
+      "top1_agreement": 1.0,
+      "top5_overlap": 1.0,
+      "greedy_match": true,
+      "first_divergence": null,
+      "ref_top2_margin_at_divergence": null,
+      "tokenizer_match": true,
+      "prompt": {
+        "text": "The history of the printing press begins"
+      }
+    }
+  ]
+}
