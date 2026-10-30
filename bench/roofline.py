@@ -304,7 +304,9 @@ def plot(result: dict, path: Path) -> None:
         va="bottom",
     )
     roof.text(hi / 1.1, PEAK_FLOPS / 1e12 * 1.15, "5.2 TFLOPS", color=MUTED, ha="right")
-    for color, n in zip(SERIES, lens):
+    # Labels go below-right for the first series, above-left for the second.
+    offsets = [(5, -11), (-12, 5)]
+    for color, offset, n in zip(SERIES, offsets, lens):
         series = [p for p in points if p["input_len"] == n]
         x = [p["arithmetic_intensity"] for p in series]
         y = [p["achieved_tflops"] for p in series]
@@ -322,7 +324,7 @@ def plot(result: dict, path: Path) -> None:
                 str(p["concurrency"]),
                 (p["arithmetic_intensity"], p["achieved_tflops"]),
                 textcoords="offset points",
-                xytext=(5, -10),
+                xytext=offset,
                 color=INK,
                 fontsize=8,
             )

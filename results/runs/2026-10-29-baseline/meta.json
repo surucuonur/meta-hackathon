@@ -1,0 +1,89 @@
+{
+  "label": "baseline",
+  "date": "2026-10-29",
+  "machine": {
+    "model": "MacBookPro18,1",
+    "chip": "Apple M1 Pro",
+    "gpu_cores": 16,
+    "memory_gib": 16.0,
+    "macos": "15.7.4",
+    "macos_build": "24G517",
+    "power_source": "Now drawing from 'AC Power'",
+    "low_power_mode": false
+  },
+  "machine_state_at_start": {
+    "time": 1793284976.7062342,
+    "swap_used_mb": 16895.19,
+    "memory_free_percent": 66,
+    "thermal_warning": false,
+    "pageouts": 60477477,
+    "swapins": 576172756,
+    "swapouts": 604015648
+  },
+  "idle_swap_per_s": {
+    "swapins": 1798.7525036176214,
+    "swapouts": 322.1232318604485,
+    "pageouts": 12.744933117889826
+  },
+  "versions": {
+    "vllm": "0.32.0+cpu",
+    "vllm-metal": "0.32.0.dev20261028121433",
+    "mlx": "0.32.4",
+    "mlx-lm": "0.32.0"
+  },
+  "commits": {
+    "repo": "846bf6338fb42a50a7c616129e5c3aa64f0049b8",
+    "vllm-metal": "e177b67d9191b72e1c2a6a454c7acdd631af2ce6",
+    "mlx-lm": "d22850520472b4ccfb47bd98993fe35c127cc116",
+    "vllm": "5df63a7203cdb9328d824a27b682e77c7b9928be"
+  },
+  "model": "models/MobileMoE-S-QAT-mlx-bfloat16",
+  "revision": "MobileMoE-S-QAT-mlx-bfloat16",
+  "converted_from": {
+    "model": "facebook/MobileMoE-S-QAT",
+    "revision": "afda132cad380ac47da5ef055f186884d1c12f65",
+    "scale_dtype": "bfloat16"
+  },
+  "server_env": {
+    "VLLM_ENABLE_V1_MULTIPROCESSING": "1"
+  },
+  "server_flags": {
+    "--host": "127.0.0.1",
+    "--port": 8000,
+    "--served-model-name": "bench",
+    "--trust-remote-code": null,
+    "--max-model-len": 2048,
+    "--max-num-seqs": 32,
+    "--max-num-batched-tokens": 2048,
+    "--kv-cache-memory-bytes": 1073741824,
+    "--no-enable-prefix-caching": null,
+    "--generation-config": "vllm"
+  },
+  "client": {
+    "dataset": "random",
+    "output_len": 256,
+    "seed": 1,
+    "num_prompts": "max(8, 4 x concurrency)",
+    "warmups": "concurrency in the timed phase, 0 in the experts phase"
+  },
+  "grid": {
+    "input_lens": [
+      128,
+      1024
+    ],
+    "concurrency": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32
+    ]
+  },
+  "reps": 3,
+  "kv_cache_tokens": {
+    "needed": 40960,
+    "timed": 52416,
+    "experts": 52416
+  }
+}
