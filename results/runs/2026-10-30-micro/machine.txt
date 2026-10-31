@@ -1,0 +1,14 @@
+Machine state around the microbenchmarks (2026-10-30, local time EDT)
+
+Before the first run (15:23):
+total = 25600.00M  used = 24816.94M  free = 783.06M  (encrypted)
+System-wide memory free percentage: 33%
+no server on 8000
+Also open: VS Code and two unrelated Python processes.
+
+Run order (start times): step_parts 15:24, moe_parts 15:26, attention_heads 15:28,
+profile_submit 15:29, step_cpu 15:30, step_repeats 15:30.
+
+After step_repeats (the last run):
+total = 30720.00M  used = 29481.88M  free = 1238.12M  (encrypted)
+System-wide memory free percentage: 67%

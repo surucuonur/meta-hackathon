@@ -1,0 +1,158 @@
+(MainProcess pid=91660) INFO 10-30 15:29:37 [api_utils.py:286] non-default args: {'trust_remote_code': True, 'max_model_len': 1024, 'enable_prefix_caching': False, 'kv_cache_memory_bytes': 268435456, 'max_num_seqs': 4, 'disable_log_stats': True, 'generation_config': 'vllm', 'model': 'models/MobileMoE-S-QAT-mlx-bfloat16'}
+(MainProcess pid=91660) WARNING 10-30 15:29:37 [arg_utils.py:1945] The global random seed is set to 0. Since VLLM_ENABLE_V1_MULTIPROCESSING is set to False, this may affect the random state of the Python process that launched vLLM.
+[transformers] `rope_parameters`'s high_freq_factor field must be greater than low_freq_factor, got high_freq_factor=1.0 and low_freq_factor=1.0
+[transformers] `rope_parameters`'s original_max_position_embeddings field must be less than max_position_embeddings, got 8192 and max_position_embeddings=8192
+[transformers] `rope_parameters`'s high_freq_factor field must be greater than low_freq_factor, got high_freq_factor=1.0 and low_freq_factor=1.0
+[transformers] `rope_parameters`'s original_max_position_embeddings field must be less than max_position_embeddings, got 8192 and max_position_embeddings=8192
+(MainProcess pid=91660) INFO 10-30 15:29:37 [model.py:733] Resolved architecture: TransformersMoEForCausalLM
+(MainProcess pid=91660) INFO 10-30 15:29:37 [model.py:2152] Using max model len 1024
+(MainProcess pid=91660) INFO 10-30 15:29:37 [scheduler.py:307] Chunked prefill is enabled with max_num_batched_tokens=4096.
+(MainProcess pid=91660) INFO 10-30 15:29:37 [kernel.py:467] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native'])
+(MainProcess pid=91660) INFO 10-30 15:29:37 [platform.py:971] Metal: chunked prefill enabled (paged attention), max_num_batched_tokens=4096
+(MainProcess pid=91660) INFO 10-30 15:29:38 [platform.py:1096] Metal memory: 17.2GB total, 3.2GB available
+[transformers] `rope_parameters`'s high_freq_factor field must be greater than low_freq_factor, got high_freq_factor=1.0 and low_freq_factor=1.0
+[transformers] `rope_parameters`'s original_max_position_embeddings field must be less than max_position_embeddings, got 8192 and max_position_embeddings=8192
+[transformers] `rope_parameters`'s high_freq_factor field must be greater than low_freq_factor, got high_freq_factor=1.0 and low_freq_factor=1.0
+[transformers] `rope_parameters`'s original_max_position_embeddings field must be less than max_position_embeddings, got 8192 and max_position_embeddings=8192
+[transformers] The tokenizer you are loading from 'models/MobileMoE-S-QAT-mlx-bfloat16' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+(MainProcess pid=91660) INFO 10-30 15:29:38 [core.py:133] Initializing a V1 LLM engine (v0.32.0) with config: model='models/MobileMoE-S-QAT-mlx-bfloat16', speculative_config=None, tokenizer='models/MobileMoE-S-QAT-mlx-bfloat16', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=True, dtype=torch.bfloat16, max_seq_len=1024, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=True, quantization=None, quantization_config=None, enforce_eager=False, aux_output_config=AuxOutputConfig(enable_return_routed_experts=False, max_bytes=None), kv_cache_dtype=auto, device_config=cpu, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, per_request_spec_decode_metrics='none', kv_cache_metrics=False, kv_cache_metrics_sample=0.01, custom_histogram_buckets=None, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=models/MobileMoE-S-QAT-mlx-bfloat16, enable_prefix_caching=False, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.VLLM_COMPILE: 3>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::qwen4_exp_ple_short_conv', 'vllm::qwen4_exp_qsa_with_output', 'vllm::qwen4_exp_qsa_prepare_with_output', 'vllm::linear_attention', 'vllm::qwen_gdn_attention_core', 'vllm::qwen_gdn_attention_core_fused_norm_packed', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::hpc_rope_norm_forward', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'cudagraph_decoder_replay': True, 'decoder_replay_cudagraph_capture_sizes': [], 'decoder_replay_trim_threshold': 768, 'compile_sizes': None, 'compile_ranges_endpoints': [4096], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': None, 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'fuse_allreduce_rms': False, 'enable_qk_norm_rope_fusion': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False, 'fuse_qk_norm_rope_kvcache': False}, 'max_cudagraph_capture_size': None, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['native']), enable_flashinfer_autotune=True, enable_rocm_segmented_attn_autotune=False, enable_cutedsl_warmup=True, enable_jit_warmup=True, moe_backend='auto', sparse_indexer_topk_backend='auto', linear_backend='auto', linear_backend_per_quant=None)
+W1030 15:29:39.001000 91660 torch/_library/triton.py:53] Triton not available, find_triton_kernels = []
+(MainProcess pid=91660) INFO 10-30 15:29:39 [worker.py:139] MLX device set to: Device(gpu, 0)
+(MainProcess pid=91660) INFO 10-30 15:29:39 [utils.py:193] Set Metal wired_limit to 10.7 GB
+(MainProcess pid=91660) INFO 10-30 15:29:39 [worker.py:147] PyTorch device set to: mps
+(MainProcess pid=91660) INFO 10-30 15:29:39 [parallel_state.py:1906] world_size=1 rank=0 local_rank=0 distributed_init_method=file:///var/folders/2k/_vzdgdjj7sj1t7w9p73kkgdm0000gn/T/vllm_dist_a918d3f85e8b4e718bb3a016d28c0eeb backend=gloo
+(MainProcess pid=91660) INFO 10-30 15:29:39 [parallel_state.py:2350] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, ETP rank 0, EP rank 0, EPLB rank N/A
+(MainProcess pid=91660) INFO 10-30 15:29:39 [model_lifecycle.py:428] MLX-LM model loaded in 0.53s: models/MobileMoE-S-QAT-mlx-bfloat16
+(MainProcess pid=91660) INFO 10-30 15:29:40 [utils.py:347] Using LBNHC KV cache layout.
+(MainProcess pid=91660) INFO 10-30 15:29:40 [cache_policy.py:1264] Paged attention: using --kv-cache-memory-bytes=268435456 (0.27GB), overriding --gpu-memory-utilization. Weights, activations and the offload host pool need additional memory.
+(MainProcess pid=91660) INFO 10-30 15:29:41 [cache_policy.py:1453] KV commit probe: forced 256 MiB resident in 0.09s: available 2.2->2.3 GiB, compressed +170 MiB, swap out +0 MiB; holding back 1.07 GB for the rest of the machine
+(MainProcess pid=91660) INFO 10-30 15:29:41 [cache_policy.py:1184] Upstream cache layout: reporting 0.27 GB KV budget; runtime allocation deferred until vLLM KVCacheConfig
+(MainProcess pid=91660) INFO 10-30 15:29:41 [kv_cache_utils.py:2327] CPU KV cache size: 13,104 tokens, Maximum concurrency for 1,024 tokens per request: 12.80x
+(MainProcess pid=91660) INFO 10-30 15:29:41 [__init__.py:322] Native paged-attention Metal kernels loaded
+(MainProcess pid=91660) INFO 10-30 15:29:41 [sdpa.py:92] Shared attention cache: 819 blocks, 0.25 GiB across 20 Metal regions
+(MainProcess pid=91660) INFO 10-30 15:29:41 [cache_policy.py:692] KV cache config received: 819 grouped blocks (MLX layout initialized from vLLM config)
+(MainProcess pid=91660) INFO 10-30 15:29:41 [model_runner.py:1439] Warming up model...
+(MainProcess pid=91660) INFO 10-30 15:29:41 [model_runner.py:1443] Model warm-up complete
+(MainProcess pid=91660) INFO 10-30 15:29:41 [__init__.py:338] Warming up v2 paged-attention Metal kernels...
+(MainProcess pid=91660) INFO 10-30 15:29:41 [__init__.py:346] Paged-attention Metal kernel warm-up complete
+(MainProcess pid=91660) INFO 10-30 15:29:41 [core.py:395] init engine (profile, create kv cache, warmup model) took 1.04 s (compilation: 0.02 s)
+[transformers] The tokenizer you are loading from 'models/MobileMoE-S-QAT-mlx-bfloat16' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+(MainProcess pid=91660) INFO 10-30 15:29:41 [hf.py:648] Detected the chat template content format to be 'openai'. You can set `--chat-template-content-format` to override this.
+unprofiled request: 1442 ms for 256 tokens = 5.63 ms/token
+         974391 function calls (974088 primitive calls) in 1.657 seconds
+
+   Ordered by: cumulative time
+   List reduced from 560 to 60 due to restriction <60>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    1.662    1.662 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/entrypoints/llm.py:418(generate)
+        1    0.000    0.000    1.662    1.662 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/entrypoints/common/offline.py:340(_run_completion)
+        1    0.001    0.001    1.660    1.660 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/entrypoints/common/offline.py:589(_run_engine)
+      257    0.002    0.000    1.659    0.006 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/v1/engine/llm_engine.py:319(step)
+      257    0.002    0.000    1.649    0.006 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/v1/engine/core_client.py:385(get_output)
+      257    0.005    0.000    1.646    0.006 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/v1/engine/core.py:698(step_with_batch_queue)
+      513    0.002    0.000    1.594    0.003 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/v1/executor/uniproc_executor.py:90(collective_rpc)
+      513    0.001    0.000    1.584    0.003 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/v1/serial_utils.py:485(run_method)
+      257    0.001    0.000    1.544    0.006 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/v1/executor/uniproc_executor.py:119(execute_model)
+      257    0.000    0.000    1.534    0.006 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/v1/worker/worker_base.py:365(execute_model)
+      257    0.000    0.000    1.533    0.006 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/worker.py:315(execute_model)
+      257    0.006    0.000    1.533    0.006 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/model_runner.py:3257(execute_model)
+      256    0.009    0.000    1.514    0.006 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/model_runner.py:1480(_start_paged_forward)
+      256    0.928    0.004    0.932    0.004 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/model_runner.py:891(_submit_paged_forward_outputs)
+      256    0.001    0.000    0.558    0.002 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/model_runner.py:916(_target_forward)
+      256    0.000    0.000    0.557    0.002 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/model_adapter.py:728(target_forward)
+      256    0.001    0.000    0.557    0.002 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/model_adapter.py:757(_target_forward)
+      256    0.003    0.000    0.553    0.002 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/mobilemoe.py:268(__call__)
+      255    0.001    0.000    0.552    0.002 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/mobilemoe.py:298(__call__)
+     5120    0.015    0.000    0.546    0.000 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/mobilemoe.py:251(__call__)
+     5120    0.012    0.000    0.337    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/impls/sdpa_wrapper.py:145(__call__)
+     5120    0.085    0.000    0.319    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/impls/sdpa.py:606(sdpa_forward)
+     5120    0.078    0.000    0.180    0.000 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/mobilemoe.py:217(__call__)
+     5120    0.032    0.000    0.147    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/impls/sdpa.py:273(prepare_sdpa_qkv)
+     5120    0.017    0.000    0.058    0.000 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/switch_layers.py:176(__call__)
+     5120    0.004    0.000    0.056    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/impls/varlen_rope_compat.py:133(apply_attention_rope)
+   165382    0.042    0.000    0.054    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/mlx/nn/layers/base.py:99(__getattr__)
+      256    0.000    0.000    0.052    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/v1/executor/uniproc_executor.py:134(sample_tokens)
+     5120    0.024    0.000    0.050    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/impls/varlen_rope_compat.py:178(apply_packed_rope)
+      256    0.000    0.000    0.048    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/worker.py:328(sample_tokens)
+      256    0.000    0.000    0.048    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/model_runner.py:3398(sample_tokens)
+      256    0.001    0.000    0.048    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/model_runner.py:3420(_sample_tokens)
+    35840    0.035    0.000    0.037    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/mlx/nn/layers/quantized.py:272(__call__)
+68628/68372    0.015    0.000    0.034    0.000 {built-in method builtins.getattr}
+     5120    0.013    0.000    0.032    0.000 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/mobilemoe.py:138(__call__)
+      255    0.017    0.000    0.029    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/model_runner.py:3459(_submit_deferred_decode_sample)
+    10240    0.020    0.000    0.027    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/caches/storage.py:100(__getitem__)
+    15360    0.025    0.000    0.026    0.000 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/mobilemoe.py:172(__call__)
+      257    0.007    0.000    0.023    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/v1/core/sched/scheduler.py:591(schedule)
+    10240    0.020    0.000    0.022    0.000 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/rope_utils.py:116(__call__)
+   233113    0.018    0.000    0.018    0.000 {method 'get' of 'dict' objects}
+        1    0.000    0.000    0.018    0.018 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/model_runner.py:1885(_sample_paged_batch)
+        1    0.000    0.000    0.018    0.018 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/sampling_batch.py:713(sample_prefill_tokens)
+        1    0.018    0.018    0.018    0.018 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/sampling_batch.py:628(sample_from_logits)
+    43016    0.008    0.000    0.017    0.000 {built-in method builtins.hasattr}
+     5120    0.003    0.000    0.016    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/impls/sdpa.py:246(_apply_qk_norms)
+    10240    0.013    0.000    0.013    0.000 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/mobilemoe.py:61(__call__)
+      257    0.006    0.000    0.011    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/v1/core/sched/scheduler.py:2026(update_from_output)
+     5120    0.002    0.000    0.010    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/caches/kv_cache.py:321(replace_layer_cache)
+      257    0.004    0.000    0.010    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/model_runner.py:1802(_evaluate_pipeline_gate)
+     5120    0.010    0.000    0.010    0.000 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/switch_layers.py:156(__call__)
+    10496    0.009    0.000    0.009    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/mlx/nn/layers/normalization.py:165(__call__)
+     5120    0.001    0.000    0.009    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/impls/sdpa.py:74(_has_packed_qkv_sdpa_contract)
+      255    0.006    0.000    0.008    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/decode_pipeline.py:356(_resolve_pending)
+    10240    0.008    0.000    0.008    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/caches/storage.py:108(__setitem__)
+      255    0.001    0.000    0.008    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/decode_pipeline.py:261(submit)
+     5120    0.008    0.000    0.008    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/mlx/nn/layers/linear.py:70(__call__)
+      256    0.002    0.000    0.008    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/v1/core/kv_cache_manager.py:371(allocate_slots)
+      257    0.002    0.000    0.007    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/v1/engine/output_processor.py:681(process_outputs)
+     5120    0.001    0.000    0.007    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/impls/sdpa.py:1169(apply_g_proj_gate)
+
+
+         974391 function calls (974088 primitive calls) in 1.657 seconds
+
+   Ordered by: internal time
+   List reduced from 560 to 40 due to restriction <40>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      256    0.928    0.004    0.932    0.004 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/model_runner.py:891(_submit_paged_forward_outputs)
+     5120    0.085    0.000    0.319    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/impls/sdpa.py:606(sdpa_forward)
+     5120    0.078    0.000    0.180    0.000 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/mobilemoe.py:217(__call__)
+   165382    0.042    0.000    0.054    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/mlx/nn/layers/base.py:99(__getattr__)
+    35840    0.035    0.000    0.037    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/mlx/nn/layers/quantized.py:272(__call__)
+     5120    0.032    0.000    0.147    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/impls/sdpa.py:273(prepare_sdpa_qkv)
+    15360    0.025    0.000    0.026    0.000 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/mobilemoe.py:172(__call__)
+     5120    0.024    0.000    0.050    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/impls/varlen_rope_compat.py:178(apply_packed_rope)
+    10240    0.020    0.000    0.027    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/caches/storage.py:100(__getitem__)
+    10240    0.020    0.000    0.022    0.000 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/rope_utils.py:116(__call__)
+   233113    0.018    0.000    0.018    0.000 {method 'get' of 'dict' objects}
+        1    0.018    0.018    0.018    0.018 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/sampling_batch.py:628(sample_from_logits)
+      255    0.017    0.000    0.029    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/model_runner.py:3459(_submit_deferred_decode_sample)
+     5120    0.017    0.000    0.058    0.000 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/switch_layers.py:176(__call__)
+     5120    0.015    0.000    0.546    0.000 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/mobilemoe.py:251(__call__)
+68628/68372    0.015    0.000    0.034    0.000 {built-in method builtins.getattr}
+    10240    0.013    0.000    0.013    0.000 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/mobilemoe.py:61(__call__)
+     5120    0.013    0.000    0.032    0.000 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/mobilemoe.py:138(__call__)
+     5120    0.012    0.000    0.337    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/impls/sdpa_wrapper.py:145(__call__)
+     5120    0.010    0.000    0.010    0.000 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/switch_layers.py:156(__call__)
+    10496    0.009    0.000    0.009    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/mlx/nn/layers/normalization.py:165(__call__)
+      256    0.009    0.000    1.514    0.006 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/model_runner.py:1480(_start_paged_forward)
+    10240    0.008    0.000    0.008    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/caches/storage.py:108(__setitem__)
+    43016    0.008    0.000    0.017    0.000 {built-in method builtins.hasattr}
+     5120    0.008    0.000    0.008    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/mlx/nn/layers/linear.py:70(__call__)
+      257    0.007    0.000    0.023    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/v1/core/sched/scheduler.py:591(schedule)
+      255    0.006    0.000    0.008    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/decode_pipeline.py:356(_resolve_pending)
+      257    0.006    0.000    1.533    0.006 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/model_runner.py:3257(execute_model)
+      257    0.006    0.000    0.011    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/v1/core/sched/scheduler.py:2026(update_from_output)
+      257    0.005    0.000    1.646    0.006 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm/v1/engine/core.py:698(step_with_batch_queue)
+     5120    0.004    0.000    0.056    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/impls/varlen_rope_compat.py:133(apply_attention_rope)
+      257    0.004    0.000    0.010    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/v1/model_runner.py:1802(_evaluate_pipeline_gate)
+    10240    0.004    0.000    0.006    0.000 <frozen importlib._bootstrap>:1390(_handle_fromlist)
+      256    0.004    0.000    0.004    0.000 {method 'step' of 'tokenizers.decoders.DecodeStream' objects}
+      256    0.003    0.000    0.003    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/caches/storage.py:185(depend)
+      256    0.003    0.000    0.553    0.002 /Users/onur/Desktop/Github/Hackathon/third_party/mlx-lm/mlx_lm/models/mobilemoe.py:268(__call__)
+    31838    0.003    0.000    0.004    0.000 {built-in method builtins.len}
+     5120    0.003    0.000    0.003    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/impls/sdpa.py:517(truncate_padded_output)
+     5120    0.003    0.000    0.007    0.000 /Users/onur/Desktop/Github/Hackathon/.venv/lib/python3.12/site-packages/vllm_metal/attention/impls/sdpa.py:163(_kernel_metadata)
+    18990    0.003    0.000    0.004    0.000 {built-in method builtins.isinstance}
+
+
+(MainProcess pid=91660) INFO 10-30 15:29:46 [worker.py:499] Metal worker shutdown complete

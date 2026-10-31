@@ -6,7 +6,13 @@ An indie-track project for the Meta Global AI Developer Hackathon (Oct 26 – No
 
 Each measured decode step is plotted against two limits: peak bandwidth (~200 GB/s) and peak compute (~5.2 TFLOPS). One request at a time should be limited by bandwidth. Running more requests per step reuses the weights already read, until compute becomes the limit. In a mixture-of-experts model, each extra request may also pull in different experts, so the bytes read grow too. Terms are defined in [GLOSSARY.md](GLOSSARY.md).
 
-**Status:** the baseline is measured ([results below](#baseline-results)). vLLM serves MobileMoE-S at 12–17% of the GPU's peak memory bandwidth, and each decode step takes 6–8 times longer than the bandwidth and compute limits require. Next: a GPU trace to find which GPU jobs take the time, then fixes.
+**Status:** the baseline is measured ([results below](#baseline-results)). vLLM serves MobileMoE-S at 12–17% of the GPU's peak memory bandwidth, and each decode step takes 6–8 times longer than the bandwidth and compute limits require. Microbenchmarks show where the time goes ([documents/findings/](documents/findings/decode-bottlenecks.md)):
+
+- about 870 small GPU kernels per step, each with a fixed cost;
+- expert weights read once per (token, expert) pair;
+- attention reading each key/value head three times.
+
+Next: fixes, in the priority order listed there.
 
 ## How Meta's models are used
 
@@ -16,13 +22,16 @@ Each measured decode step is plotted against two limits: peak bandwidth (~200 GB
 ## Layout
 
 ```
-GLOSSARY.md        shared vocabulary
-docs/adr/          decisions and why
-third_party/       pinned submodules: vllm-metal and mlx-lm (forks, where changes go), vLLM v0.32.0 (read-only)
-bench/             benchmark sweep, roofline calculation, port correctness check
-analysis/          map of the hot code path; Muse Spark findings
-results/runs/      every benchmark run, committed
-results/traces/    Metal GPU traces (large, not committed)
+GLOSSARY.md           shared vocabulary
+docs/adr/             decisions and why
+third_party/          pinned submodules: vllm-metal and mlx-lm (forks, where changes go), vLLM v0.32.0 (read-only)
+bench/                benchmark sweep, roofline calculation, port correctness check
+bench/micro/          microbenchmarks of a decode step's parts
+analysis/             map of the hot code path; Muse Spark findings
+documents/benchmark/  baseline benchmark write-up: findings, every measurement, method
+documents/findings/   where a decode step's time goes, and the fixes it suggests
+results/runs/         every benchmark run, committed
+results/traces/       Metal GPU traces (large, not committed)
 ```
 
 ## Setup
@@ -84,7 +93,7 @@ A second check confirms that serving through vLLM gives the same tokens as plain
 
 ## Baseline results
 
-The unmodified engine (vLLM 0.32.0, vllm-metal 0.32.0.dev20261028121433, mlx 0.32.4) serving MobileMoE-S-QAT on an M1 Pro (16-core GPU, 16 GB, macOS 15.7.4, on AC power). Random-token prompts of 128 or 1,024 tokens, 256 generated tokens each, 1 to 32 requests in flight. Every point ran 3 times in shuffled order. All files are in [results/runs/2026-10-29-baseline/](results/runs/2026-10-29-baseline/), with the [full table](results/runs/2026-10-29-baseline/summary.md).
+The unmodified engine (vLLM 0.32.0, vllm-metal 0.32.0.dev20261028121433, mlx 0.32.4) serving MobileMoE-S-QAT on an M1 Pro (16-core GPU, 16 GB, macOS 15.7.4, on AC power). Random-token prompts of 128 or 1,024 tokens, 256 generated tokens each, 1 to 32 requests in flight. Every point ran 3 times in shuffled order. All files are in [results/runs/2026-10-29-baseline/](results/runs/2026-10-29-baseline/), with the [full table](results/runs/2026-10-29-baseline/summary.md). The full write-up, with every measurement and how it was made, is in [documents/benchmark/](documents/benchmark/).
 
 ![Roofline and step-time breakdown](results/runs/2026-10-29-baseline/roofline.png)
 
@@ -104,9 +113,15 @@ What the data shows:
 - **No step is bandwidth-bound or compute-bound.** Achieved bandwidth stays at 24–34 GB/s for every setting, and each step takes 6–8 times its lower bound. In the terms of [GLOSSARY.md](GLOSSARY.md), the baseline is overhead-bound everywhere.
 - **Batching helps, but each extra request costs a lot.** With 128-token prompts, 32 requests give 5.9 times the tokens per second of one request. The step grows by about 0.8 ms per request, while the bytes it must read grow by about 17 MB per request, which takes 0.09 ms at peak bandwidth.
 - **With one request, the CPU and the GPU are both near their limit.** vllm-metal's step-submit call uses 4.7 ms of CPU time in a 5.5 ms step, so even a perfect GPU would leave the step near 5 ms.
-- **With more requests, the GPU work sets the pace.** The CPU time grows only to 7 ms at 32 requests. The rest of the submit call is waiting, and macOS reports the GPU busy for 91–100% of every run. The GPU has work queued almost all the time, but that work moves only about 30 GB/s.
+- **With more requests, the GPU work sets the pace.** The CPU time grows only to 7 ms at 32 requests. The rest of the submit call is waiting, and macOS reports the GPU busy for 90–100% of every run. The GPU has work queued almost all the time, but that work moves only about 30 GB/s.
 
-What it doesn't show yet: which GPU jobs take the time. The candidates to check in a GPU trace are a fixed cost per GPU job across the hundreds of small jobs in each step, expert matrix products that read an expert's weights once per request instead of once per step (mlx_lm groups tokens by expert only from 16 requests up), and the speed of the non-transposed int4 kernels the experts use.
+Where the time goes, from microbenchmarks run after the sweep ([documents/findings/decode-bottlenecks.md](documents/findings/decode-bottlenecks.md)):
+
+- **Kernel count.** vLLM itself adds only 5–10%. Each step is about 870 small GPU kernels with a fixed cost each.
+- **Expert reads.** MLX reads each expert's weights once per (token, expert) pair, because it picks its grouped kernel only from 60 rows per step.
+- **Attention.** vllm-metal's grouped-query attention kernel doesn't support MobileMoE-S's 12/4 head layout, so the keys and values are read three times.
+
+The weight layout of Meta's experts is not the main cause.
 
 Limits of these numbers:
 

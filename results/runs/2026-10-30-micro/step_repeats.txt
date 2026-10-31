@@ -1,0 +1,5 @@
+R= 1 pipelined step ms per repeat: 4.78, 5.20, 5.11, 4.85  median 4.98
+R= 8 pipelined step ms per repeat: 13.57, 13.59, 13.68, 13.66  median 13.62
+R=32 pipelined step ms per repeat: 28.57, 30.50, 28.67, 28.79  median 28.73
+total = 30720.00M  used = 29481.88M  free = 1238.12M  (encrypted)
+System-wide memory free percentage: 67%

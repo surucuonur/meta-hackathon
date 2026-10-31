@@ -1,0 +1,17 @@
+R= 1 distinct/layer  4.0 | moe 6.02 | moe_compiled 4.27 | experts 3.64 | experts_transposed 3.83 | shared 1.85 | attn_proj 1.08 | experts at peak 0.22 ms; per-pair reads 44 MB
+R= 4 distinct/layer 14.4 | moe 6.95 | moe_compiled 5.61 | experts 3.11 | experts_transposed 3.81 | shared 2.01 | attn_proj 1.43 | experts at peak 0.80 ms; per-pair reads 177 MB
+R=16 distinct/layer 35.0 | moe 14.03 | moe_compiled 13.45 | experts 9.75 | experts_transposed 8.97 | shared 3.76 | attn_proj 2.78 | experts at peak 1.94 ms; per-pair reads 708 MB
+R=32 distinct/layer 47.8 | moe 21.56 | moe_compiled 20.51 | experts 16.60 | experts_transposed 15.56 | shared 3.89 | attn_proj 2.92 | experts at peak 2.64 ms; per-pair reads 1416 MB
+kernel A/B (gate+up+down of one layer, x20 calls chained):
+  rows  8, pairs  32, experts  8, ours       sorted=False: 5.08 ms per 20 layers
+  rows  8, pairs  32, experts  8, ours       sorted=True : 3.82 ms per 20 layers
+  rows  8, pairs  32, experts  8, transposed sorted=False: 4.29 ms per 20 layers
+  rows  8, pairs  32, experts  8, transposed sorted=True : 3.98 ms per 20 layers
+  rows 16, pairs  64, experts 16, ours       sorted=False: 8.12 ms per 20 layers
+  rows 16, pairs  64, experts 16, ours       sorted=True : 5.65 ms per 20 layers
+  rows 16, pairs  64, experts 16, transposed sorted=False: 7.61 ms per 20 layers
+  rows 16, pairs  64, experts 16, transposed sorted=True : 5.70 ms per 20 layers
+  rows 32, pairs 128, experts 30, ours       sorted=False: 15.02 ms per 20 layers
+  rows 32, pairs 128, experts 30, ours       sorted=True : 9.63 ms per 20 layers
+  rows 32, pairs 128, experts 30, transposed sorted=False: 14.02 ms per 20 layers
+  rows 32, pairs 128, experts 30, transposed sorted=True : 9.74 ms per 20 layers

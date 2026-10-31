@@ -1,0 +1,2 @@
+R= 1: graph build CPU 0.91 ms | async_eval CPU 2.65 ms | then GPU wait 3.72 ms
+R=32: graph build CPU 1.18 ms | async_eval CPU 4.27 ms | then GPU wait 14.84 ms

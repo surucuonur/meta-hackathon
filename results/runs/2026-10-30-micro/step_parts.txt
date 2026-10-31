@@ -1,0 +1,11 @@
+loaded
+tiny dependent op: 6.81 us each
+output layer R=1: 0.931 ms = 66 GB/s
+output layer R=32: 2.644 ms = 23 GB/s
+decode step R= 1: graph build CPU 1.06 ms, build+eval 6.77 ms, pipelined 5.04 ms
+decode step R= 2: graph build CPU 1.11 ms, build+eval 8.28 ms, pipelined 6.34 ms
+decode step R= 4: graph build CPU 1.01 ms, build+eval 10.93 ms, pipelined 9.33 ms
+decode step R= 8: graph build CPU 1.03 ms, build+eval 15.42 ms, pipelined 13.85 ms
+decode step R=16: graph build CPU 1.17 ms, build+eval 21.79 ms, pipelined 19.97 ms
+decode step R=32: graph build CPU 1.26 ms, build+eval 30.88 ms, pipelined 28.91 ms
+dot lines 7744
